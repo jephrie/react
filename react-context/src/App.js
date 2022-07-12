@@ -1,25 +1,41 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { StateOnlyForm } from './state-only';
+
+// <img src={logo} className="App-logo" alt="logo" />
 
 function App() {
+  const [page, setPage] = useState();
+
+  const getPageComponent = () => {
+    switch (page) {
+      case 'state-only':
+        return StateOnlyForm;
+      default:
+        return ExampleSelection;
+    }
+  };
+  const Component = getPageComponent();
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Component onClick={setPage} />
       </header>
     </div>
   );
 }
+
+const ExampleSelection = ({
+  onClick,
+}) => {
+  return (
+    <div>
+      <p>Select an example below</p>
+      <button onClick={() => onClick('state-only')}>State only form</button>
+    </div>
+  );
+};
 
 export default App;
