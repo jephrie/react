@@ -1,3 +1,10 @@
+# What's this about?
+After reading [Nadia's blog post of react context](https://www.developerway.com/posts/how-to-write-performant-react-apps-with-context) i wanted to try out the 3 scenarios put forth in the article.\
+The 3 scenarios are:
+1. Complex form only using state causes unnecessary rerenders
+2. Complex form only using 1 react context still causes some unnecessary rerenders
+3. Complex form using multiple react contexts can fix the rerender issue
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
