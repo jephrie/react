@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import React, { useState } from 'react';
 import './App.css';
-import { StateOnlyForm } from './state-only';
+import { StateOnlyForm } from './examples/state-only';
 
 // <img src={logo} className="App-logo" alt="logo" />
 

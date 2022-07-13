@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { WelcomeMessage } from '../common/components/welcome-message';
-import { InfoPanel } from '../common/components/info-panel';
-import { NameField } from '../common/components/name-field';
-import { CountryField } from '../common/components/country-field';
-import { Disclaimer } from '../common/components/disclaimer';
-import { RenderCounter } from '../common/components/render-counter';
+import React, { useState } from 'react';
+import { WelcomeMessage } from '../../common/components/welcome-message';
+import { InfoPanel } from '../../common/components/info-panel';
+import { NameField } from '../../common/components/name-field';
+import { CountryField } from '../../common/components/country-field';
+import { Disclaimer } from '../../common/components/disclaimer';
+import { RenderCounter } from '../../common/components/render-counter';
 
 let count = 0;
 const availableCountries = ['Australia', "Bermuda", "Chile", "Denmark", "Estonia", "Fiji"];
