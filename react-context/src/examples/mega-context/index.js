@@ -1,25 +1,38 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { WelcomeMessage } from '../../common/components/welcome-message';
 import { InfoPanel } from '../../common/components/info-panel';
 import { NameField } from '../../common/components/name-field';
 import { CountryField } from '../../common/components/country-field';
 import { Disclaimer } from '../../common/components/disclaimer';
 import { RenderCounter } from '../../common/components/render-counter';
+import { AppContextProvider, AppContext } from '../../common/app-context';
 
 let count = 0;
 const availableCountries = ['Australia', "Bermuda", "Chile", "Denmark", "Estonia", "Fiji"];
-export const StateOnlyForm = () => {
-    const [username, setUsername] = useState('John');
-    const [country, setCountry] = useState(availableCountries[0]);
-
-    const onUsernameChange = (event) => {
-        setUsername(event.target.value);
-    };
-    const onCountryChange = (event) => {
-        setCountry(event.target.value);
-    }
+export const MegaContextForm = () => {
     count++;
 
+    return (
+        <div>
+            <AppContextProvider>
+                <FormSection/>
+            </AppContextProvider>
+            <Disclaimer />
+            <hr/>
+            <RenderCounter count={count} prefix={'Form render count: '} />
+        </div>
+    );
+};
+
+const FormSection = () => {
+    const {
+        state: {
+            username,
+            country,
+        },
+        onUsernameChange,
+        onCountryChange,
+    } = useContext(AppContext);
     return (
         <div>
             <NameField onChange={onUsernameChange} username={username} />
@@ -30,9 +43,6 @@ export const StateOnlyForm = () => {
             <hr/>
             {(country && username) ?<InfoPanel country={country} username={username} /> : null}
             <hr/>
-            <Disclaimer />
-            <hr/>
-            <RenderCounter count={count} prefix={'Form render count: '} />
         </div>
     );
-};
+}

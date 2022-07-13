@@ -2,8 +2,9 @@ import React from 'react';
 
 export const RenderCounter = ({
     count,
+    prefix = 'Render count: '
 }) => {
     return (
-        <p>Render count: {count}</p>
+        <p>{prefix}{count}</p>
     )
 };

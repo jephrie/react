@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import { StateOnlyForm } from './examples/state-only';
+import { MegaContextForm } from './examples/mega-context';
 
 // <img src={logo} className="App-logo" alt="logo" />
 
@@ -12,6 +13,8 @@ function App() {
     switch (page) {
       case 'state-only':
         return StateOnlyForm;
+      case 'mega-context':
+        return MegaContextForm;
       default:
         return ExampleSelection;
     }
@@ -34,6 +37,7 @@ const ExampleSelection = ({
     <div>
       <p>Select an example below</p>
       <button onClick={() => onClick('state-only')}>State only form</button>
+      <button onClick={() => onClick('mega-context')}>Mega context form</button>
     </div>
   );
 };
