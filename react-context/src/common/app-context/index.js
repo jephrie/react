@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RenderCounter } from "../components/render-counter";
+import { incrementRenderCount } from '../../service/render-tracker';
 
 const initialState = {
     username: 'John',
@@ -10,10 +10,9 @@ export const AppContext = React.createContext({
     state: initialState,
 });
 
-let count = 0;
 export const AppContextProvider = ({ children }) => {
     const [state, setState] = useState(initialState);
-    count++;
+    incrementRenderCount('AppContextProvider');
 
     const onUsernameChange = (event) => setState({
         ...state,
@@ -33,8 +32,6 @@ export const AppContextProvider = ({ children }) => {
     return (
         <div>
             <AppContext.Provider value={value}>{children}</AppContext.Provider>
-            <RenderCounter count={count} prefix={'AppContextProvider render count: '} />
-            <hr />
         </div>
     );
 };

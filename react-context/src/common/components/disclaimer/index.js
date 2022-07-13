@@ -1,14 +1,12 @@
 import React from "react";
-import { RenderCounter } from "../render-counter";
+import { incrementRenderCount } from '../../../service/render-tracker';
 
-let count = 0;
 export const Disclaimer = () => {
-    count++;
+    incrementRenderCount('Disclaimer');
 
     return (
         <div>
             <p>We reserve the right to use your data!</p>
-            <RenderCounter count={count} />
         </div>
     );
 };

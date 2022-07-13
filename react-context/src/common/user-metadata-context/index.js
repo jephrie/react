@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RenderCounter } from "../components/render-counter";
+import { incrementRenderCount } from '../../service/render-tracker';
 
 const initialState = {
     username: 'John',
@@ -9,10 +9,9 @@ export const UserMetadataContext = React.createContext({
     state: initialState,
 });
 
-let count = 0;
 export const UserMetadataContextProvider = ({ children }) => {
     const [state, setState] = useState(initialState);
-    count++;
+    incrementRenderCount('UserMetadataContextProvider');
 
     const onUsernameChange = (event) => setState({
         ...state,
@@ -27,8 +26,6 @@ export const UserMetadataContextProvider = ({ children }) => {
     return (
         <div>
             <UserMetadataContext.Provider value={value}>{children}</UserMetadataContext.Provider>
-            <RenderCounter count={count} prefix={'UserMetadataContextProvider render count: '} />
-            <hr />
         </div>
     );
 };

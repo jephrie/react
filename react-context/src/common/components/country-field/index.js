@@ -1,12 +1,11 @@
 import React from "react";
-import { RenderCounter } from '../render-counter';
+import { incrementRenderCount } from '../../../service/render-tracker';
 
-let count = 0;
 export const CountryField = ({
     onChange,
     selectableCountries,
 }) => {
-    count++;
+    incrementRenderCount('CountryField');
 
     return (
         <div>
@@ -16,7 +15,6 @@ export const CountryField = ({
                     {selectableCountries.map((country) => <option value={country} key={country}>{country}</option>)}
                 </select>
             </p>
-            <RenderCounter count={count}/>
         </div>
     );
 };

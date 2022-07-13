@@ -1,12 +1,12 @@
 import React from 'react';
 import { Disclaimer } from '../../common/components/disclaimer';
-import { RenderCounter } from '../../common/components/render-counter';
+import { RenderTrackerTable } from '../../common/components/render-tracker-table'
 import { AppContextProvider } from '../../common/app-context';
+import { incrementRenderCount } from '../../service/render-tracker';
 import { FormSection } from './section';
 
-let count = 0;
 export const MegaContextForm = () => {
-    count++;
+    incrementRenderCount('MegaContextForm');
 
     return (
         <div>
@@ -15,7 +15,7 @@ export const MegaContextForm = () => {
             </AppContextProvider>
             <Disclaimer />
             <hr/>
-            <RenderCounter count={count} prefix={'Form render count: '} />
+            <RenderTrackerTable />
         </div>
     );
 };

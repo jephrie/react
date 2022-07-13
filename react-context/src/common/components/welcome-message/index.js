@@ -1,16 +1,14 @@
 import React from "react";
-import { RenderCounter } from "../render-counter";
+import { incrementRenderCount } from '../../../service/render-tracker';
 
-let count = 0;
 export const WelcomeMessage = ({
     username,
 }) => {
-    count++;
+    incrementRenderCount('WelcomeMessage');
 
     return (
         <div>
             <p>Hi! Welcome back {username}.</p>
-            <RenderCounter count={count} />
         </div>
     );
 };

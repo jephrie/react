@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RenderCounter } from "../components/render-counter";
+import { incrementRenderCount } from '../../service/render-tracker';
 
 const initialState = {
     country: 'Australia',
@@ -9,10 +9,9 @@ export const UserLocationContext = React.createContext({
     state: initialState,
 });
 
-let count = 0;
 export const UserLocationContextProvider = ({ children }) => {
     const [state, setState] = useState(initialState);
-    count++;
+    incrementRenderCount('UserLocationContextProvider');
 
     const onCountryChange = (event) => setState({
         ...state,
@@ -27,8 +26,6 @@ export const UserLocationContextProvider = ({ children }) => {
     return (
         <div>
             <UserLocationContext.Provider value={value}>{children}</UserLocationContext.Provider>
-            <RenderCounter count={count} prefix={'UserLocationContextProvider render count: '} />
-            <hr />
         </div>
     );
 };

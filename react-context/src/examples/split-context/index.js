@@ -4,13 +4,13 @@ import { InfoPanelWrapper } from './info-panel-wrapper';
 import { NameFieldWrapper } from './name-field-wrapper';
 import { CountryFieldWrapper } from './country-field-wrapper';
 import { Disclaimer } from '../../common/components/disclaimer';
-import { RenderCounter } from '../../common/components/render-counter';
 import { UserMetadataContextProvider } from '../../common/user-metadata-context';
 import { UserLocationContextProvider } from '../../common/user-location-context';
+import { RenderTrackerTable } from '../../common/components/render-tracker-table';
+import { incrementRenderCount } from '../../service/render-tracker';
 
-let count = 0;
 export const SplitContextForm = () => {
-    count++;
+    incrementRenderCount('SplitContextForm');
 
     return (
         <div>
@@ -30,7 +30,7 @@ export const SplitContextForm = () => {
             </UserMetadataContextProvider>
             <Disclaimer />
             <hr/>
-            <RenderCounter count={count} prefix={'Form render count: '} />
+            <RenderTrackerTable />
         </div>
     );
 };

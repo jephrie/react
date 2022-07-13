@@ -5,10 +5,9 @@ import { WelcomeMessage } from '../../common/components/welcome-message';
 import { InfoPanel } from '../../common/components/info-panel';
 import { NameField } from '../../common/components/name-field';
 import { CountryField } from '../../common/components/country-field';
-import { RenderCounter } from '../../common/components/render-counter';
+import { incrementRenderCount } from '../../service/render-tracker';
 
 const availableCountries = ['Australia', "Bermuda", "Chile", "Denmark", "Estonia", "Fiji"];
-let count = 0;
 export const FormSection = () => {
     const {
         state: {
@@ -18,19 +17,14 @@ export const FormSection = () => {
         onUsernameChange,
         onCountryChange,
     } = useContext(AppContext);
-    count++;
+    incrementRenderCount('FormSection');
+
     return (
         <div>
             <NameField onChange={onUsernameChange} username={username} />
-            <hr/>
             <CountryField onChange={onCountryChange} selectableCountries={availableCountries} />
-            <hr/>
             {username ? <WelcomeMessage username={username} /> : null}
-            <hr/>
             {(country && username) ?<InfoPanel country={country} username={username} /> : null}
-            <hr/>
-            <RenderCounter count={count} prefix={'Form section render count: '} />
-            <hr/>
         </div>
     );
 };
