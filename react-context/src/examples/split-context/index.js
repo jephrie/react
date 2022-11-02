@@ -22,10 +22,3 @@ export const SplitContextForm = () => {
         </>
     );
 };
-
-
-
-
-
-
-
