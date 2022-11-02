@@ -6,12 +6,8 @@ import { CountryFieldWrapper } from './country-field-wrapper';
 import { Disclaimer } from '../../common/components/disclaimer';
 import { UserMetadataContextProvider } from '../../common/user-metadata-context';
 import { UserLocationContextProvider } from '../../common/user-location-context';
-import { RenderTrackerTable } from '../../common/components/render-tracker-table';
-import { incrementRenderCount } from '../../service/render-tracker';
 
 export const SplitContextForm = () => {
-    incrementRenderCount('SplitContextForm');
-
     return (
         <div>
             <UserMetadataContextProvider>
@@ -29,8 +25,6 @@ export const SplitContextForm = () => {
                 </UserLocationContextProvider>
             </UserMetadataContextProvider>
             <Disclaimer />
-            <hr/>
-            <RenderTrackerTable />
         </div>
     );
 };

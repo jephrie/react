@@ -5,6 +5,9 @@ The 3 scenarios are:
 2. Complex form only using 1 react context still causes some unnecessary rerenders
 3. Complex form using multiple react contexts can fix the rerender issue
 
+# How am i tracking renders?
+[Guide to checking renders](https://jsramblings.com/how-to-check-if-your-component-rerendered-and-why/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -5,7 +5,6 @@ import { WelcomeMessage } from '../../common/components/welcome-message';
 import { InfoPanel } from '../../common/components/info-panel';
 import { NameField } from '../../common/components/name-field';
 import { CountryField } from '../../common/components/country-field';
-import { incrementRenderCount } from '../../service/render-tracker';
 
 const availableCountries = ['Australia', "Bermuda", "Chile", "Denmark", "Estonia", "Fiji"];
 export const FormSection = () => {
@@ -17,7 +16,6 @@ export const FormSection = () => {
         onUsernameChange,
         onCountryChange,
     } = useContext(AppContext);
-    incrementRenderCount('FormSection');
 
     return (
         <div>

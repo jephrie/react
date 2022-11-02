@@ -4,8 +4,6 @@ import { InfoPanel } from '../../common/components/info-panel';
 import { NameField } from '../../common/components/name-field';
 import { CountryField } from '../../common/components/country-field';
 import { Disclaimer } from '../../common/components/disclaimer';
-import { RenderTrackerTable } from '../../common/components/render-tracker-table';
-import { incrementRenderCount } from '../../service/render-tracker';
 
 const availableCountries = ['Australia', "Bermuda", "Chile", "Denmark", "Estonia", "Fiji"];
 export const StateOnlyForm = () => {
@@ -18,7 +16,6 @@ export const StateOnlyForm = () => {
     const onCountryChange = (event) => {
         setCountry(event.target.value);
     }
-    incrementRenderCount('StateOnlyForm');
 
     return (
         <div>
@@ -27,8 +24,6 @@ export const StateOnlyForm = () => {
             {username ? <WelcomeMessage username={username} /> : null}
             {(country && username) ?<InfoPanel country={country} username={username} /> : null}
             <Disclaimer />
-            <hr/>
-            <RenderTrackerTable />
         </div>
     );
 };

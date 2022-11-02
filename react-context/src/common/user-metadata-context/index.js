@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { incrementRenderCount } from '../../service/render-tracker';
 
 const initialState = {
     username: 'John',
@@ -11,7 +10,6 @@ export const UserMetadataContext = React.createContext({
 
 export const UserMetadataContextProvider = ({ children }) => {
     const [state, setState] = useState(initialState);
-    incrementRenderCount('UserMetadataContextProvider');
 
     const onUsernameChange = (event) => setState({
         ...state,
