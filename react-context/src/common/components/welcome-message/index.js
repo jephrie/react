@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from 'react';
+import { UserMetadataContext } from '../../user-metadata-context';
 
 export const WelcomeMessage = ({
     username,
@@ -6,6 +7,18 @@ export const WelcomeMessage = ({
     return (
         <div>
             <p>Hi! Welcome back {username}.</p>
+        </div>
+    );
+};
+
+export const WelcomeMessageWrapper = () => {
+    const {
+        state: { username },
+    } = useContext(UserMetadataContext);
+
+    return (
+        <div>
+            <WelcomeMessage username={username} />
         </div>
     );
 };

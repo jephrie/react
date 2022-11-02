@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from 'react';
+import { UserMetadataContext } from '../../user-metadata-context';
 
 export const NameField = ({
     onChange,
@@ -11,4 +12,13 @@ export const NameField = ({
             </p>
         </div>
     );
+};
+
+export const NameFieldWrapper = () => {
+    const {
+        state: { username },
+        onUsernameChange,
+    } = useContext(UserMetadataContext);
+
+    return <NameField onChange={onUsernameChange} username={username} />;
 };

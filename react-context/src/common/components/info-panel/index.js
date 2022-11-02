@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from 'react';
+import { UserMetadataContext } from '../../user-metadata-context';
+import { UserLocationContext } from '../../user-location-context';
 
 export const InfoPanel = ({
     username,
@@ -11,4 +13,15 @@ export const InfoPanel = ({
             <p>Country: {country}</p>
         </div>
     );
+};
+
+export const InfoPanelWrapper = () => {
+    const {
+        state: { username },
+    } = useContext(UserMetadataContext);
+    const {
+        state: { country },
+    } = useContext(UserLocationContext);
+
+    return <InfoPanel country={country} username={username} />;
 };
