@@ -21,9 +21,5 @@ export const UserLocationContextProvider = ({ children }) => {
         onCountryChange,
     };
 
-    return (
-        <div>
-            <UserLocationContext.Provider value={value}>{children}</UserLocationContext.Provider>
-        </div>
-    );
+    return <UserLocationContext.Provider value={value}>{children}</UserLocationContext.Provider>;
 };

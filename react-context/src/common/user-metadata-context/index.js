@@ -21,9 +21,5 @@ export const UserMetadataContextProvider = ({ children }) => {
         onUsernameChange,
     };
 
-    return (
-        <div>
-            <UserMetadataContext.Provider value={value}>{children}</UserMetadataContext.Provider>
-        </div>
-    );
+    return <UserMetadataContext.Provider value={value}>{children}</UserMetadataContext.Provider>;
 };

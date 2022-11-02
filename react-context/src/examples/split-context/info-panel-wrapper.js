@@ -11,9 +11,5 @@ export const InfoPanelWrapper = () => {
         state: { country },
     } = useContext(UserLocationContext);
 
-    return (
-        <div>
-            <InfoPanel country={country} username={username} />
-        </div>
-    );
+    return <InfoPanel country={country} username={username} />;
 };

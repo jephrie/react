@@ -27,9 +27,5 @@ export const AppContextProvider = ({ children }) => {
         onCountryChange,
     };
 
-    return (
-        <div>
-            <AppContext.Provider value={value}>{children}</AppContext.Provider>
-        </div>
-    );
+    return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

@@ -8,9 +8,5 @@ export const NameFieldWrapper = () => {
         onUsernameChange,
     } = useContext(UserMetadataContext);
 
-    return (
-        <div>
-            <NameField onChange={onUsernameChange} username={username} />
-        </div>
-    );
+    return <NameField onChange={onUsernameChange} username={username} />;
 };

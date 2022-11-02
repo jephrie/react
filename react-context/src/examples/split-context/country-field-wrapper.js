@@ -9,9 +9,5 @@ export const CountryFieldWrapper = () => {
         onCountryChange,
     } = useContext(UserLocationContext);
 
-    return (
-        <div>
-            <CountryField onChange={onCountryChange} selectableCountries={availableCountries} />
-        </div>
-    );
+    return <CountryField onChange={onCountryChange} selectableCountries={availableCountries} />;
 };
