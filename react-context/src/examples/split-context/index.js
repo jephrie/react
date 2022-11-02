@@ -9,23 +9,17 @@ import { UserLocationContextProvider } from '../../common/user-location-context'
 
 export const SplitContextForm = () => {
     return (
-        <div>
-            <UserMetadataContextProvider>
-                <NameFieldWrapper />
-            </UserMetadataContextProvider>
-            <UserLocationContextProvider>
-                <CountryFieldWrapper />
-            </UserLocationContextProvider>
-            <UserMetadataContextProvider>
-                <WelcomeMessageWrapper />
-            </UserMetadataContextProvider>
+        <>
             <UserMetadataContextProvider>
                 <UserLocationContextProvider>
+                    <NameFieldWrapper />
+                    <CountryFieldWrapper />
+                    <WelcomeMessageWrapper />
                     <InfoPanelWrapper />
                 </UserLocationContextProvider>
             </UserMetadataContextProvider>
             <Disclaimer />
-        </div>
+        </>
     );
 };
 
