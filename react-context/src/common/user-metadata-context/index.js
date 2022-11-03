@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
 const initialState = {
-    username: 'John',
+    username: 'Robert',
+    nickname: 'Bob',
 };
 
 export const UserMetadataContext = React.createContext({
@@ -16,9 +17,15 @@ export const UserMetadataContextProvider = ({ children }) => {
         username: event.target.value,
     });
     
+    const onNicknameChange = (event) => setState({
+        ...state,
+        nickname: event.target.value,
+    });
+    
     const value = {
         state,
         onUsernameChange,
+        onNicknameChange,
     };
 
     return <UserMetadataContext.Provider value={value}>{children}</UserMetadataContext.Provider>;

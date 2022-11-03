@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
 const initialState = {
-    username: 'John',
+    username: 'Robert',
+    nickname: 'Bob',
     country: 'Australia',
 };
 
@@ -16,6 +17,10 @@ export const AppContextProvider = ({ children }) => {
         ...state,
         username: event.target.value,
     });
+    const onNicknameChange = (event) => setState({
+        ...state,
+        nickname: event.target.value,
+    });
     const onCountryChange = (event) => setState({
         ...state,
         country: event.target.value,
@@ -24,6 +29,7 @@ export const AppContextProvider = ({ children }) => {
     const value = {
         state,
         onUsernameChange,
+        onNicknameChange,
         onCountryChange,
     };
 
