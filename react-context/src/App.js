@@ -5,6 +5,7 @@ import { StateOnlyForm } from './examples/state-only';
 import { MegaContextForm } from './examples/mega-context';
 import { SplitContextForm } from './examples/split-context';
 import { RepeatContextCaveat } from './examples/repeat-context-caveat';
+import { SplitContextByMutatorsCaveatForm } from './examples/split-context-by-mutators-caveat';
 
 // <img src={logo} className="App-logo" alt="logo" />
 
@@ -19,6 +20,8 @@ function App() {
         return MegaContextForm;
       case 'repeat-context-caveat':
         return RepeatContextCaveat;
+      case 'split-context-by-mutators-caveat':
+        return SplitContextByMutatorsCaveatForm;
       case 'split-context':
         return SplitContextForm;
       default:
@@ -40,11 +43,17 @@ const ExampleSelection = ({
   onClick,
 }) => {
   return (
-    <div>
+    <div style={{
+      display: 'flex',
+      'flex-direction': 'column',
+      'justify-content': 'space-between',
+      'gap': '10px',
+    }}>
       <p>Select an example below</p>
       <button onClick={() => onClick('state-only')}>State only form</button>
       <button onClick={() => onClick('mega-context')}>Mega context form</button>
       <button onClick={() => onClick('repeat-context-caveat')}>Repeat context caveat form</button>
+      <button onClick={() => onClick('split-context-by-mutators-caveat')}>Split context by mutators caveat form</button>
       <button onClick={() => onClick('split-context')}>Split context form</button>
     </div>
   );

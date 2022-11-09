@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { UserLocationContext } from '../../user-location-context';
 
-const availableCountries = ['Australia', "Bermuda", "Chile", "Denmark", "Estonia", "Fiji"];
+export const availableCountries = ['Australia', "Bermuda", "Chile", "Denmark", "Estonia", "Fiji"];
 
 export const CountryField = ({
     onChange,
