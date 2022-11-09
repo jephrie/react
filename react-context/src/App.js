@@ -4,7 +4,7 @@ import './App.css';
 import { StateOnlyForm } from './examples/state-only';
 import { MegaContextForm } from './examples/mega-context';
 import { SplitContextForm } from './examples/split-context';
-import { MultiContextCaveat } from './examples/multi-context-caveat';
+import { RepeatContextCaveat } from './examples/repeat-context-caveat';
 
 // <img src={logo} className="App-logo" alt="logo" />
 
@@ -17,8 +17,8 @@ function App() {
         return StateOnlyForm;
       case 'mega-context':
         return MegaContextForm;
-      case 'multi-context-caveat':
-        return MultiContextCaveat;
+      case 'repeat-context-caveat':
+        return RepeatContextCaveat;
       case 'split-context':
         return SplitContextForm;
       default:
@@ -44,7 +44,7 @@ const ExampleSelection = ({
       <p>Select an example below</p>
       <button onClick={() => onClick('state-only')}>State only form</button>
       <button onClick={() => onClick('mega-context')}>Mega context form</button>
-      <button onClick={() => onClick('multi-context-caveat')}>Multi context caveat form</button>
+      <button onClick={() => onClick('repeat-context-caveat')}>Repeat context caveat form</button>
       <button onClick={() => onClick('split-context')}>Split context form</button>
     </div>
   );

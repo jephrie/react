@@ -8,9 +8,10 @@ import { Disclaimer } from '../../common/components/disclaimer';
 import { UserMetadataContextProvider } from '../../common/user-metadata-context';
 import { UserLocationContextProvider } from '../../common/user-location-context';
 
-export const MultiContextCaveat = () => {
+export const RepeatContextCaveat = () => {
     return (
         <>
+            <p>Caveat - using the same provider several times will not update each instance of the provider.</p>
             <UserMetadataContextProvider>
                 <NameFieldWrapper />
                 <NicknameFieldWrapper />
