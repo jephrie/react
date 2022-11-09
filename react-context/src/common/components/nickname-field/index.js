@@ -8,7 +8,7 @@ export const NicknameField = ({
     return (
         <div>
             <p>
-                Nickname: <input type="text" onChange={onChange} value={nickname} />
+                Nickname: <input type="text" onChange={(event) => onChange(event.target.value)} value={nickname} />
             </p>
         </div>
     );
@@ -20,5 +20,5 @@ export const NicknameFieldWrapper = () => {
         onNicknameChange,
     } = useContext(UserMetadataContext);
 
-    return <NicknameField onChange={onNicknameChange} nickname={nickname} />;
+    return <NicknameField onChange={() => onNicknameChange(event.target.value)} nickname={nickname} />;
 };

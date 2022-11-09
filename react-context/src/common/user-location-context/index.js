@@ -11,9 +11,9 @@ export const UserLocationContext = React.createContext({
 export const UserLocationContextProvider = ({ children }) => {
     const [state, setState] = useState(initialState);
 
-    const onCountryChange = (event) => setState({
+    const onCountryChange = (country) => setState({
         ...state,
-        country: event.target.value,
+        country,
     });
     
     const value = {

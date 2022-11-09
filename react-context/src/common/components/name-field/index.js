@@ -8,7 +8,7 @@ export const NameField = ({
     return (
         <div>
             <p>
-                Name: <input type="text" onChange={onChange} value={username} />
+                Name: <input type="text" onChange={(event) => onChange(event.target.value)} value={username} />
             </p>
         </div>
     );

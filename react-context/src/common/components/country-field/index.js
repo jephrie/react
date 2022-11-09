@@ -6,12 +6,13 @@ const availableCountries = ['Australia', "Bermuda", "Chile", "Denmark", "Estonia
 export const CountryField = ({
     onChange,
     selectableCountries,
+    value,
 }) => {
     return (
         <div>
             <p>
                 Country:
-                <select onChange={onChange}>
+                <select onChange={() => onChange(event.target.value)} value={value}>
                     {selectableCountries.map((country) => <option value={country} key={country}>{country}</option>)}
                 </select>
             </p>
@@ -24,5 +25,5 @@ export const CountryFieldWrapper = () => {
         onCountryChange,
     } = useContext(UserLocationContext);
 
-    return <CountryField onChange={onCountryChange} selectableCountries={availableCountries} />;
+    return <CountryField onChange={() => onCountryChange(event.target.value)} selectableCountries={availableCountries} />;
 };
