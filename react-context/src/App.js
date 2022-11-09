@@ -45,9 +45,9 @@ const ExampleSelection = ({
   return (
     <div style={{
       display: 'flex',
-      'flex-direction': 'column',
-      'justify-content': 'space-between',
-      'gap': '10px',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      gap: '10px',
     }}>
       <p>Select an example below</p>
       <button onClick={() => onClick('state-only')}>State only form</button>
