@@ -38,7 +38,7 @@ const SplitContextFormInner = () => {
 };
 
 const NameFieldWrapper = () => {
-    const username = useContext(UserNameContext);
+    const { username } = useContext(UserNameContext);
     const {
         onUsernameChange,
     } = useContext(UserMutatorsContext);
@@ -46,7 +46,7 @@ const NameFieldWrapper = () => {
 };
 
 const NicknameFieldWrapper = () => {
-    const nickname = useContext(UserNicknameContext);
+    const { nickname } = useContext(UserNicknameContext);
     const {
         onNicknameChange,
     } = useContext(UserMutatorsContext);
@@ -54,7 +54,7 @@ const NicknameFieldWrapper = () => {
 };
 
 const CountryFieldWrapper = () => {
-    const country = useContext(LocationContext);
+    const { country } = useContext(LocationContext);
     const {
         onCountryChange,
     } = useContext(UserMutatorsContext);
@@ -62,13 +62,13 @@ const CountryFieldWrapper = () => {
 };
 
 const WelcomeMessageWrapper = () => {
-    const username = useContext(UserNameContext);
+    const { username } = useContext(UserNameContext);
     return <WelcomeMessage username={username} />;
 };
 
 const InfoPanelWrapper = () => {
-    const username = useContext(UserNameContext);
-    const country = useContext(LocationContext);
+    const { username } = useContext(UserNameContext);
+    const { country } = useContext(LocationContext);
     return <InfoPanel country={country} username={username} />;
 };
 

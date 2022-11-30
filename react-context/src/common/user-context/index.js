@@ -62,11 +62,25 @@ export const UserContextProvider = ({ children }) => {
         };
     }, []);
 
+    // Need to memoize these values since they're creating new objects and could cause many unnecessary re-renders.
+    // This approach allows us to have more than 1 value per context.
+    const usernameValue = useMemo(() => (
+        { username: state.username }
+    ), [state.username]);
+
+    const nicknameValue = useMemo(() => (
+        { nickname: state.nickname }
+    ), [state.nickname]);
+
+    const countryValue = useMemo(() => (
+        { country: state.country }
+    ), [state.country]);
+
     return (
         <UserMutatorsContext.Provider value={mutators}>
-            <UserNameContext.Provider value={state.username}>
-                <UserNicknameContext.Provider value={state.nickname}>
-                    <LocationContext.Provider value={state.country}>
+            <UserNameContext.Provider value={usernameValue}>
+                <UserNicknameContext.Provider value={nicknameValue}>
+                    <LocationContext.Provider value={countryValue}>
                         {children}
                     </LocationContext.Provider>
                 </UserNicknameContext.Provider>
