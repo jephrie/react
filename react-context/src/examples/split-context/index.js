@@ -6,34 +6,39 @@ import { NicknameField } from '../../common/components/nickname-field';
 import { CountryField, availableCountries } from '../../common/components/country-field';
 import { Disclaimer } from '../../common/components/disclaimer';
 import { FormResetButtonWithReset } from '../../common/components/form-reset-button';
-import { UserContextProvider, UserContext, UserMutatorsContext } from '../../common/user-context';
+import {
+    UserContextProvider,
+    UserNameContext,
+    UserNicknameContext,
+    LocationContext,
+    UserMutatorsContext
+} from '../../common/user-context';
 
 export const SplitContextForm = () => {
     return (
-        <UserContextProvider>
+        <div>
             <SplitContextFormInner />
             <Disclaimer />
-        </UserContextProvider>
+        </div>
+        
     );
 };
 
 const SplitContextFormInner = () => {
     return (
-        <div>
+        <UserContextProvider>
             <NameFieldWrapper />
             <NicknameFieldWrapper />
             <CountryFieldWrapper />
             <WelcomeMessageWrapper />
             <InfoPanelWrapper />
             <ResetButtonWrapper />
-        </div>
+        </UserContextProvider>
     );
 };
 
 const NameFieldWrapper = () => {
-    const {
-        username,
-    } = useContext(UserContext);
+    const username = useContext(UserNameContext);
     const {
         onUsernameChange,
     } = useContext(UserMutatorsContext);
@@ -41,9 +46,7 @@ const NameFieldWrapper = () => {
 };
 
 const NicknameFieldWrapper = () => {
-    const {
-        nickname,
-    } = useContext(UserContext);
+    const nickname = useContext(UserNicknameContext);
     const {
         onNicknameChange,
     } = useContext(UserMutatorsContext);
@@ -51,9 +54,7 @@ const NicknameFieldWrapper = () => {
 };
 
 const CountryFieldWrapper = () => {
-    const {
-        country,
-    } = useContext(UserContext);
+    const country = useContext(LocationContext);
     const {
         onCountryChange,
     } = useContext(UserMutatorsContext);
@@ -61,17 +62,13 @@ const CountryFieldWrapper = () => {
 };
 
 const WelcomeMessageWrapper = () => {
-    const {
-        username,
-    } = useContext(UserContext);
+    const username = useContext(UserNameContext);
     return <WelcomeMessage username={username} />;
 };
 
 const InfoPanelWrapper = () => {
-    const {
-        username,
-        country,
-    } = useContext(UserContext);
+    const username = useContext(UserNameContext);
+    const country = useContext(LocationContext);
     return <InfoPanel country={country} username={username} />;
 };
 

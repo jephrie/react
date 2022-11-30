@@ -3,7 +3,7 @@ After reading [Nadia's blog post of react context](https://www.developerway.com/
 The 3 scenarios are:
 1. Complex form only using state causes unnecessary rerenders
 2. Complex form only using 1 react context still causes some unnecessary rerenders
-3. Complex form using multiple react contexts can fix the rerender issue
+3. Complex form using multiple react contexts and reducers can fix the rerender issue
 
 # How am i tracking renders?
 [Guide to checking renders](https://jsramblings.com/how-to-check-if-your-component-rerendered-and-why/)
