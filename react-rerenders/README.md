@@ -1,5 +1,6 @@
 # What's this about?
 I wanted to go through some of the examples in [Nadia's blog post](https://www.developerway.com/posts/how-to-write-performant-react-code) about performant react.
+Use react dev tools profiler to check re-renders.
 
 # Getting Started with Create React App
 

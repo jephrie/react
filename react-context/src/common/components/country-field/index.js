@@ -5,7 +5,7 @@ export const availableCountries = ['Australia', "Bermuda", "Chile", "Denmark", "
 
 export const CountryField = ({
     onChange,
-    selectableCountries,
+    selectableCountries = availableCountries,
     value,
 }) => {
     return (
