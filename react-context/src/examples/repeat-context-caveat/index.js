@@ -12,6 +12,7 @@ export const RepeatContextCaveat = () => {
     return (
         <>
             <p>Caveat - using the same provider several times will not update each instance of the provider.</p>
+            <p>Only the closest context will be updated - <a style={{ color: 'white' }} target="_blank" rel="noreferrer" href="https://reactjs.org/docs/context.html#reactcreatecontext">sauce</a></p>
             <UserMetadataContextProvider>
                 <NameFieldWrapper />
                 <NicknameFieldWrapper />
