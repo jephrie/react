@@ -20,6 +20,22 @@ export const CountryField = ({
     );
 };
 
+export const CountryFieldNoValue = ({
+    onChange,
+    selectableCountries = availableCountries,
+}) => {
+    return (
+        <div>
+            <p>
+                Country:
+                <select onChange={() => onChange(event.target.value)}>
+                    {selectableCountries.map((country) => <option value={country} key={country}>{country}</option>)}
+                </select>
+            </p>
+        </div>
+    );
+};
+
 export const CountryFieldWrapper = () => {
     const {
         onCountryChange,

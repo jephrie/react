@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import { WelcomeMessage } from '../../common/components/welcome-message';
-import { InfoPanel } from '../../common/components/info-panel';
 import { NameField } from '../../common/components/name-field';
 import { NicknameField } from '../../common/components/nickname-field';
-import { CountryField, availableCountries } from '../../common/components/country-field';
+import { CountryFieldNoValue, availableCountries } from '../../common/components/country-field';
 import { Disclaimer } from '../../common/components/disclaimer';
 import { FormResetButtonWithReset } from '../../common/components/form-reset-button';
 import { UserContextProviderWithState, UserMutatorsContextWithState, UserContextWithState } from '../../common/user-context-with-state';
@@ -13,6 +12,7 @@ export const SplitContextByMutatorsCaveatForm = () => {
         <div>
             <p>Caveat - using local component state to store mutators will cause a re-render when the state changes, effectively making the context useless.</p>
             <p>Changing the nickname will can an unnecessary re-render just like the mega context example.</p>
+            <p>Splitting by mutators is desirable because mutators dont really change. They just happen to change because state changes.</p>
             <UserContextProviderWithState>
                 <SplitContextByMutatorsCaveatInner />
             </UserContextProviderWithState>
@@ -31,17 +31,14 @@ const SplitContextByMutatorsCaveatInner = () => {
     const {
         username,
         nickname,
-        country,
     } = useContext(UserContextWithState);
 
     return (
         <div>
             <NameField onChange={onUsernameChange} username={username} />
             <NicknameField nickname={nickname} onChange={onNicknameChange} />
-            <CountryField onChange={onCountryChange} selectableCountries={availableCountries} value={country} />
+            <CountryFieldNoValue onChange={onCountryChange} selectableCountries={availableCountries} />
             <WelcomeMessage username={username} />
-            <InfoPanel country={country} username={username} />
-            <Disclaimer />
             <FormResetButtonWithReset onReset={onReset} />
         </div>
     );
