@@ -1,9 +1,25 @@
 # What's this about?
 After reading [Nadia's blog post of react context](https://www.developerway.com/posts/how-to-write-performant-react-apps-with-context) i wanted to try out the 3 scenarios put forth in the article.\
 The 3 scenarios are:
-1. Complex form only using state causes unnecessary rerenders
-2. Complex form only using 1 react context still causes some unnecessary rerenders
-3. Complex form using multiple react contexts and reducers can fix the rerender issue
+1. Form only using state causes unnecessary rerenders
+2. Form only using 1 react context still causes some unnecessary rerenders
+3. Form using multiple react contexts and reducers can fix the rerender issue
+
+Examples:
+1. State only - every state change causes a rerender on the form
+2. Mega context - every context state change causes consumers of context mutators to re-render
+    - This is because mutators depend on state, causing the mutator functions to change everytime state changes. More info in "Split context by mutators caveat".
+3. Repeat context caveat - don't use the same context provider more than once on a given page. Only the "closest" context values will be read, which will cause other consumers to become stale (no re-render).
+4. Split context by mutators caveat - when organising context state, think about how mutators will set state too. If too much state is written in to a single object state, the mutators will likely have to set the entire object when called. This will couple context state with context mutators, causing many undesired re-renders.
+5. Split context - separate the state and mutators by using a reducer inside context to dispatch state changes. Dispatch circumvents the need to know and set the entire state object.
+
+The learnings:
+1. When sharing state downwards (child components) then local component state is the simplest. When deep prop drilling becomes an issue, context can help alleviate this issue.
+2. When sharing state upwards (parent components) or sideways (sibling components) you cannot use local component state. Instead use react contexts to declare state that spans any one component.
+3. Use react contexts when context boundaries do not overlap ie. data does not need to be shared across contexts. Otherwise you will need to manage/synchronise data across contexts and potentially cause a bunch of re-renders where you don't intend to.
+4. Model your context state based off the consumption of context mutators. If you store everything in a single piece of state as an object, and mutators will update a single property of the object, you can cause a lot of re-renders to consumers.
+5. Use react reducers in react context when sharing state between boundaries, this will take away the management of the shared state.
+6. Use state management libraries for react so you don't have to think too hard about your context state design, or when it becomes complicated with dependent state.
 
 # How am i tracking renders?
 [Guide to checking renders](https://jsramblings.com/how-to-check-if-your-component-rerendered-and-why/)
