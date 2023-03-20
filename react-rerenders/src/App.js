@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { ParentRenders } from './examples/rule-one';
 import { MemoComponents } from './examples/rule-two';
+import { InlineFnComponents } from './examples/inline-fn-components';
 
 function App() {
   const [page, setPage] = useState();
@@ -12,6 +13,8 @@ function App() {
         return ParentRenders;
       case 'memo-components':
         return MemoComponents;
+      case 'inline-fn-components':
+        return InlineFnComponents;
       default:
         return ExampleSelection;
     }
@@ -37,6 +40,9 @@ const ExampleSelection = ({
       </div>
       <div>
         <button onClick={() => onClick('memo-components')}>Memoize components</button>
+      </div>
+      <div>
+        <button onClick={() => onClick('inline-fn-components')}>Inline functional components</button>
       </div>
     </div>
   );
