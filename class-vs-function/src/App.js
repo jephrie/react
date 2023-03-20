@@ -1,53 +1,34 @@
 import React, { useState } from 'react';
 import './App.css';
+import { AsyncRenderExample } from './examples/AsyncRender';
 
-export class AppClass extends React.Component {
-  constructor () {
-    super();
-    this.state = { count: 0, started: false };
-  }
-
-  onButtonClick () {
-    if (!this.state.started) {
-      setTimeout(() => alert(`Your score IS ${this.state.count}!`), 1000);
-    }
-    this.setState({ started: true, count: this.state.count + 1 })
-  }
-
-  render() {
-    return (
-      <button
-        onClick={() => this.onButtonClick()}
-      >
-        {this.state.started ? "Current score: " + this.state.count : "Start"}
-      </button>
-    );
+const getExampleComponent = (exampleName) => {
+  switch(exampleName) {
+    case 'async-render':
+      return AsyncRenderExample;
+    default:
+      return null;
   }
 };
 
-export const AppFn = () => {
-  const [count, setCount] = useState(0);
-  const [started, setStarted] = useState(false);
+export const App = () => {
+  const [selectedExample, setSelectedExample] = useState();
+  const ExampleComponent = getExampleComponent(selectedExample);
 
-  function increment() {
-    setCount(count + 1);
-  }
-
-  function start() {
-    if (!started) {
-      setTimeout(() => alert(`Your score WAS ${count}!`), 1000);
-    }
-    setStarted(true);
+  if (ExampleComponent) {
+    return <ExampleComponent />;
   }
 
   return (
-    <button
-      onClick={() => {
-        increment();
-        start();
-      }}
-    >
-      {started ? "Current score: " + count : "Start"}
-    </button>
+    <div className='App'>
+    <h1>Class componets vs function components</h1>
+      <button
+        onClick={() => {
+          setSelectedExample('async-render');
+        }}
+      >
+        Async render example
+      </button>
+    </div>
   );
-}
+};

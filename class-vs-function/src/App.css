@@ -1,5 +1,3 @@
-.AppFn, .AppClass {
-  text-align: center;
-  border: 1px solid black;
-  margin: 40px;
+.App {
+    text-align: center;
 }

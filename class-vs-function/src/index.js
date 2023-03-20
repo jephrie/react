@@ -1,20 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { AppFn, AppClass } from './App';
+import { App } from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <div className='AppClass'>
-      <h1>Class app</h1>
-      <AppClass />
-    </div>
-    <div className='AppFn'>
-      <h1>Functional app</h1>
-      <AppFn />
-    </div>
+    <App />
   </React.StrictMode>
 );
 
