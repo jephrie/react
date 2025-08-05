@@ -11,8 +11,8 @@ export const SplitContextByMutatorsCaveatForm = () => {
     return (
         <div>
             <p>Caveat - using local component state to store mutators will cause a re-render when the state changes, effectively making the context useless.</p>
-            <p>Changing the nickname will can an unnecessary re-render just like the mega context example.</p>
-            <p>Splitting by mutators is desirable because mutators dont really change. They just happen to change because state changes.</p>
+            <p>Changing the nickname will cause unnecessary re-renders just like the mega context example.</p>
+            <p>Splitting by mutators would be desirable because mutators dont really change. However each mutator could be tied to local component state and therefore cause a lot of rerenders.</p>
             <UserContextProviderWithState>
                 <SplitContextByMutatorsCaveatInner />
             </UserContextProviderWithState>

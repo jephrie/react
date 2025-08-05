@@ -10,16 +10,17 @@ Examples:
 2. Mega context - every context state change causes consumers of context mutators to re-render
     - This is because mutators depend on state, causing the mutator functions to change everytime state changes. More info in "Split context by mutators caveat".
 3. Repeat context caveat - don't use the same context provider more than once on a given page. Only the "closest" context values will be read, which will cause other consumers to become stale (no re-render).
-4. Split context by mutators caveat - when organising context state, think about how mutators will set state too. If too much state is written in to a single object state, the mutators will likely have to set the entire object when called. This will couple context state with context mutators, causing many undesired re-renders.
-5. Split context - separate the state and mutators by using a reducer inside context to dispatch state changes. Dispatch circumvents the need to know and set the entire state object.
+4. Split context by mutators caveat - think about the relationship between mutators and their backing state. If the mutator is stored in context and is backed by local component state, it will cause re-renders on every mutation of that state. This will cause components using the context mutation to re-render due to mutation function update.
+5. Split context - decouple the local component state and it's mutators by using a reducer inside the context to dispatch state changes. This reduces unneccessary re-renders as mutators are constants and state property changes only trigger re-renders where required.
 
 The learnings:
 1. When sharing state downwards (child components) then local component state is the simplest. When deep prop drilling becomes an issue, context can help alleviate this issue.
 2. When sharing state upwards (parent components) or sideways (sibling components) you cannot use local component state. Instead use react contexts to declare state that spans any one component.
 3. Use react contexts when context boundaries do not overlap ie. data does not need to be shared across contexts. Otherwise you will need to manage/synchronise data across contexts and potentially cause a bunch of re-renders where you don't intend to.
 4. Model your context state based off the consumption of context mutators. If you store everything in a single piece of state as an object, and mutators will update a single property of the object, you can cause a lot of re-renders to consumers.
-5. Use react reducers in react context when sharing state between boundaries, this will take away the management of the shared state.
-6. Use state management libraries for react so you don't have to think too hard about your context state design, or when it becomes complicated with dependent state.
+5. Use react reducers in react context when sharing state. This will improve the performance of your react app by:
+    - decoupling state and state mutators
+    - decoupling each property in the state object, allowing for targeted re-rendering
 
 # How am i tracking renders?
 [Guide to checking renders](https://jsramblings.com/how-to-check-if-your-component-rerendered-and-why/)
