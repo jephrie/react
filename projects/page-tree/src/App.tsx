@@ -1,5 +1,5 @@
-import { Page } from './page/Page';
 import './App.css';
+import { AddPageButton } from './page/AddPageButton';
 
 function App() {
   return (
@@ -10,7 +10,8 @@ function App() {
       <div>
         <div>
           <div className='placeholder-content'>
-            <p>Create a page to get started.</p>
+            <p>Create a page to get started by clicking the button below.</p>
+            <AddPageButton label='Create a page' />
           </div>
         </div>
       </div>
