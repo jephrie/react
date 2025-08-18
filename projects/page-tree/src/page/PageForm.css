@@ -1,0 +1,29 @@
+.page-form > input,
+.page-form > textarea {
+    background-color: #282c34;
+    width: 100%;
+    border: 0;
+    color: white;
+}
+
+.page-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    gap: 2vh;
+}
+
+.title-input {
+    font-size: 4vmin;
+}
+
+.content-input {
+    height: 100%;
+    width: 100%;
+    resize: none;
+}
+
+.submit-button {
+    padding: 1vh 1vw;
+}
