@@ -1,31 +1,31 @@
-import { v7 } from 'uuid';
 import { createContext, PropsWithChildren, useMemo, useReducer } from 'react';
 import { Mode } from '../common/Types';
 
 type State = {
-    pages: Pages,
+    pages: Pages;
     mode: Mode;
 };
 
 type Pages = {
-    [PageId: string]: Page
+    [PageId: string]: Page;
 } | {};
 
 type Page = {
-    parent: string,
-    children: string[],
-    title: string,
-    content: string,
+    id: string;
+    parent?: string;
+    children?: string[];
+    title: string;
+    content: string;
 };
 
 type UpdateModeAction = {
-    type: 'updateMode',
+    type: 'updateMode';
     mode: Mode;
 }
 
 type AddPageAction = {
-    type: 'addPage',
-    page: Page,
+    type: 'addPage';
+    page: Page;
 };
 
 type Action = UpdateModeAction | AddPageAction;
@@ -39,12 +39,11 @@ const initialState = {
 
 export const reducer = (state: State, action: Action) => {
     if (action.type === 'addPage') {
-        const id = v7();
         return {
             ...state,
             pages: {
                 ...state.pages,
-                [id]: action.page,
+                [action.page.id]: action.page,
             },
         };
     } else if (action.type === 'updateMode') {
