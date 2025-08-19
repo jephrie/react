@@ -1,8 +1,9 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { StoreContext } from '../store/Store';
 import './Navigator.css';
 
 export const Navigator = () => {
+    const [isMouseOver, setIsMouseOver] = useState(false);
     const { pages } = useContext(StoreContext);
     const allPageIds = Object.keys(pages);
 
@@ -19,8 +20,15 @@ export const Navigator = () => {
         const page = pages[pageId];
 
         return (
-            <ul key={`page-title-${pageId}`}>
-                <li>{page.title}</li>
+            <ul key={`page-title-${pageId}`} className='nav-tree'>
+                <li>
+                    <div className='nav-link' onMouseEnter={() => setIsMouseOver(true)} onMouseLeave={() => setIsMouseOver(false)}>
+                        <div className='nav-link-title'>
+                            {page.title}
+                        </div>
+                        {isMouseOver && <button className='nav-link-create-page-button'>+</button>}
+                    </div>
+                </li>
                 {page.children && page.children.length > 0 && page.children.map((pageId: string) => generateTree(pageId))}
             </ul>
         );
