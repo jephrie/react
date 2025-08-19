@@ -17,8 +17,8 @@
 }
 
 .App-body {
-  height: calc(100vh - 5vmin - 2vh - 4vh);
-  margin: 1vh 1vw;
+  height: calc(100vh - 5vmin - 2vh - 2vh);  /* offset app-header */
+  display: flex;
 }
 
 .App-link {

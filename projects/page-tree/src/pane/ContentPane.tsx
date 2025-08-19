@@ -1,17 +1,26 @@
 import { useContext } from 'react';
 import './ContentPane.css';
+import { Page } from '../page/Page';
 import { PageForm } from '../page/PageForm';
 import { StartPage } from '../page/StartPage';
 import { StoreContext } from '../store/Store';
 
 
 export const ContentPane = () => {
-    const { mode } = useContext(StoreContext);
+    const { currentPageId, mode, pages } = useContext(StoreContext);
+
+    let component;
+    if (mode === 'Start') {
+        component = <StartPage />;
+    } else if (mode === 'AddPage') {
+        component = <PageForm saveButtonLabel='Create Page'/>;
+    } else if (mode === 'ReadPage' && currentPageId) {
+        component = <Page title={pages[currentPageId].title} content={pages[currentPageId].content} />;
+    }
 
     return (
         <div className='content-pane'>
-            {mode === 'Start' && <StartPage />}
-            {mode === 'AddPage' && <PageForm saveButtonLabel='Create Page'/>}
+            {component}
         </div>
     );
 };

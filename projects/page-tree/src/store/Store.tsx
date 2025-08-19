@@ -1,41 +1,49 @@
 import { createContext, PropsWithChildren, useMemo, useReducer } from 'react';
-import { Mode } from '../common/Types';
+import { Mode, Page } from '../common/Types';
 
 type State = {
-    pages: Pages;
+    currentPageId?: string;
     mode: Mode;
+    pages: Pages;
+};
+
+type StateMutators = {
+    addPage: (page: Page) => void;
+    updateCurrentPageId: (pageId: string) => void;
+    updateMode: (mode: Mode) => void;
 };
 
 type Pages = {
     [PageId: string]: Page;
-} | {};
-
-type Page = {
-    id: string;
-    parent?: string;
-    children?: string[];
-    title: string;
-    content: string;
 };
-
-type UpdateModeAction = {
-    type: 'updateMode';
-    mode: Mode;
-}
 
 type AddPageAction = {
     type: 'addPage';
     page: Page;
 };
 
-type Action = UpdateModeAction | AddPageAction;
-
-const initialState = {
-    pages: {},
-    mode: 'Start' as Mode,
-    onUpdateMode: (mode: Mode) => {},
-    onAddPage: (page: Page) => {},
+type UpdateCurrentPageAction = {
+    type: 'updateCurrentPageId',
+    pageId: string,
 };
+
+type UpdateModeAction = {
+    type: 'updateMode';
+    mode: Mode;
+};
+
+type Action = UpdateCurrentPageAction | UpdateModeAction | AddPageAction;
+
+const initialState: State = {
+    mode: 'Start' as Mode,
+    pages: {} as Pages,
+};
+
+const initialStateMutators: StateMutators = {
+    addPage: (page: Page) => {},
+    updateCurrentPageId: (pageId: string) => {},
+    updateMode: (mode: Mode) => {},
+}
 
 export const reducer = (state: State, action: Action) => {
     if (action.type === 'addPage') {
@@ -46,40 +54,52 @@ export const reducer = (state: State, action: Action) => {
                 [action.page.id]: action.page,
             },
         };
+    } else if (action.type === 'updateCurrentPageId') {
+        return {
+            ...state,
+            currentPageId: action.pageId,
+        }
     } else if (action.type === 'updateMode') {
         return {
             ...state,
             mode: action.mode,
         };
     } else {
-        console.debug(`Unknown action: ${(action as Action).type}. ${action}`);
+        console.error(`Unknown action: ${(action as Action).type}. ${action}`);
         return state;
     }
 };
-
-const updateModeAction = (mode: Mode) => ({
-    type: 'updateMode',
-    mode,
-}) as UpdateModeAction;
 
 const addPageAction = (page: Page) => ({
     type: 'addPage',
     page,
 }) as AddPageAction;
 
-export const StoreContext = createContext(initialState);
+const updateCurrentPageIdAction = (pageId: string) => ({
+    type: 'updateCurrentPageId',
+    pageId,
+}) as UpdateCurrentPageAction;
+
+const updateModeAction = (mode: Mode) => ({
+    type: 'updateMode',
+    mode,
+}) as UpdateModeAction;
+
+export const StoreContext = createContext<State & StateMutators>({ ...initialState, ...initialStateMutators });
 
 export const StoreProvider = ({ children }: PropsWithChildren) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const onUpdateMode = useMemo(() => (mode: Mode) => dispatch(updateModeAction(mode)), []);
-    const onAddPage = useMemo(() => (page: Page) => dispatch(addPageAction(page)), []);
+    const addPage = useMemo(() => (page: Page) => dispatch(addPageAction(page)), []);
+    const updateMode = useMemo(() => (mode: Mode) => dispatch(updateModeAction(mode)), []);
+    const updateCurrentPageId = useMemo(() => (pageId: string) => dispatch(updateCurrentPageIdAction(pageId)), []);
 
     const value = useMemo(() => ({
         ...state,
-        onUpdateMode,
-        onAddPage,
-    }), [state, onUpdateMode, onAddPage]);
+        addPage,
+        updateCurrentPageId,
+        updateMode,
+    }), [state, addPage, updateCurrentPageId, updateMode]);
 
     return (
         <StoreContext.Provider value={value}>

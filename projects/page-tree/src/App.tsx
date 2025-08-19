@@ -1,4 +1,5 @@
 import './App.css';
+import { Navigator } from './navigation/Navigator';
 import { ContentPane } from './pane/ContentPane';
 import { StoreProvider } from './store/Store';
 
@@ -11,6 +12,7 @@ function App() {
       </header>
       <div className='App-body'>
         <StoreProvider>
+          <Navigator />
           <ContentPane />
         </StoreProvider>
       </div>

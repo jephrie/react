@@ -7,10 +7,10 @@ type Props = {
 };
 
 const AddPageButton = ({ label }: Props) => {
-    const { onUpdateMode } = useContext(StoreContext);
+    const { updateMode } = useContext(StoreContext);
     return (
         <button>
-            <div className='button-label' onClick={() => onUpdateMode('AddPage')}>
+            <div className='button-label' onClick={() => updateMode('AddPage')}>
                 {label}
             </div>
         </button>

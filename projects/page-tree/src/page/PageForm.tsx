@@ -8,7 +8,7 @@ type Props = {
 };
 
 const PageForm = ({ saveButtonLabel }: Props) => {
-    const { onAddPage } = useContext(StoreContext);
+    const { addPage, currentPageId, updateMode, updateCurrentPageId } = useContext(StoreContext);
 
     const [title, setTitle] = useState<string>();
     const [content, setContent] = useState<string>();
@@ -22,14 +22,19 @@ const PageForm = ({ saveButtonLabel }: Props) => {
     }
     const onSubmit = (e: BaseSyntheticEvent) => {
         setSubmitted(true);
+        e.preventDefault();
 
         if (!title || !content) {
-            e.preventDefault();
             return;
         }
 
         const id = v7();
-        onAddPage({ id, title, content });
+        addPage({ id, title, content });
+
+        if (!currentPageId) {
+            updateCurrentPageId(id);
+        }
+        updateMode('ReadPage');
     };
 
     return (

@@ -4,14 +4,16 @@
     width: 100%;
     border: 0;
     color: white;
+    text-align: center;
 }
 
 .page-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100%;
+    height: calc(100% - 2vh);   /* offset submit button padding */
     gap: 2vh;
+    margin: 10px;
 }
 
 .title-input {
@@ -30,5 +32,4 @@
 
 .error {
     color: red;
-    text-align: left;
 }
