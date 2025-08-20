@@ -6,10 +6,6 @@
     padding: 10px;
 }
 
-.nav-tree {
-    max-width: 15vw;
-}
-
 .nav-link {
     display: flex;
     justify-content: space-between;

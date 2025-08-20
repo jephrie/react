@@ -7,13 +7,13 @@ import { StoreContext } from '../store/Store';
 
 
 export const ContentPane = () => {
-    const { currentPageId, mode, pages } = useContext(StoreContext);
-
+    const { currentPageId, mode, newPageParentId, pages } = useContext(StoreContext);
+    
     let component;
     if (mode === 'Start') {
         component = <StartPage />;
     } else if (mode === 'AddPage') {
-        component = <PageForm saveButtonLabel='Create Page'/>;
+        component = <PageForm saveButtonLabel='Create Page' parentPageId={newPageParentId} />;
     } else if (mode === 'ReadPage' && currentPageId) {
         component = <Page title={pages[currentPageId].title} content={pages[currentPageId].content} />;
     }

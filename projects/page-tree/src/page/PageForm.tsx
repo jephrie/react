@@ -5,9 +5,10 @@ import './PageForm.css';
 
 type Props = {
     saveButtonLabel: string;
+    parentPageId?: string;
 };
 
-const PageForm = ({ saveButtonLabel }: Props) => {
+const PageForm = ({ parentPageId, saveButtonLabel }: Props) => {
     const { addPage, currentPageId, updateMode, updateCurrentPageId } = useContext(StoreContext);
 
     const [title, setTitle] = useState<string>();
@@ -29,8 +30,9 @@ const PageForm = ({ saveButtonLabel }: Props) => {
         }
 
         const id = v7();
-        addPage({ id, title, content });
+        addPage({ id, title, content, parent: parentPageId, children: [] });
 
+        // no need to show the start page anymore, show content instead since it's more useful to the user.
         if (!currentPageId) {
             updateCurrentPageId(id);
         }

@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { StoreContext } from '../store/Store';
 import './Navigator.css';
+import { AddPageButton } from '../page/AddPageButton';
 
 export const Navigator = () => {
     const [isMouseOver, setIsMouseOver] = useState(false);
@@ -20,19 +21,19 @@ export const Navigator = () => {
         const page = pages[pageId];
 
         return (
-            <ul key={`page-title-${pageId}`} className='nav-tree'>
+            <ul key={`page-title-${pageId}`}>
                 <li>
                     <div className='nav-link' onMouseEnter={() => setIsMouseOver(true)} onMouseLeave={() => setIsMouseOver(false)}>
                         <div className='nav-link-title'>
                             {page.title}
                         </div>
-                        {isMouseOver && <button className='nav-link-create-page-button'>+</button>}
+                        {isMouseOver && <AddPageButton label='+' appearance='small' parentPageId={page.id} />}
                     </div>
                 </li>
-                {page.children && page.children.length > 0 && page.children.map((pageId: string) => generateTree(pageId))}
+                {page.children.map((childPageId: string) => generateTree(childPageId))}
             </ul>
         );
-    }
+    };
     
     return (
         <div className='navigator-pane'>
