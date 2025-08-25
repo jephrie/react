@@ -1,5 +1,5 @@
 import { createContext, PropsWithChildren, useMemo, useReducer } from 'react';
-import { Mode, Page } from '../common/Types';
+import { Mode, Page, Pages } from '../common/Types';
 
 type State = {
     currentPageId?: string;
@@ -10,18 +10,21 @@ type State = {
 
 type StateMutators = {
     addPage: (page: Page) => void;
+    movePage: (pageId: string, newParentPageId?: string) => void;
     updateCurrentPageId: (pageId: string) => void;
     updateMode: (mode: Mode) => void;
-    updateNewPageParent: (parentPageId: string | undefined) => void;
-};
-
-type Pages = {
-    [PageId: string]: Page;
+    updateNewPageParent: (parentPageId?: string) => void;
 };
 
 type AddPageAction = {
     type: 'addPage';
     page: Page;
+};
+
+type MovePageAction = {
+    type: 'movePage',
+    pageId: string,
+    newParentPageId?: string,
 };
 
 type UpdateCurrentPageAction = {
@@ -39,7 +42,7 @@ type UpdateNewPageParentAction = {
     newPageParentId?: string;
 };
 
-type Action = AddPageAction | UpdateCurrentPageAction | UpdateModeAction | UpdateNewPageParentAction;
+type Action = AddPageAction | MovePageAction | UpdateCurrentPageAction | UpdateModeAction | UpdateNewPageParentAction;
 
 const initialState: State = {
     mode: 'Start' as Mode,
@@ -48,10 +51,16 @@ const initialState: State = {
 
 const initialStateMutators: StateMutators = {
     addPage: (page: Page) => {},
+    movePage: (pageId: string, newParentPageId?: string) => {},
     updateCurrentPageId: (pageId: string) => {},
     updateMode: (mode: Mode) => {},
-    updateNewPageParent: (parentPageId: string | undefined) => {},
+    updateNewPageParent: (parentPageId?: string) => {},
 }
+
+const removeChildPage = (page: Page, childPageId: string) => {
+    page.children = page.children.filter((id: string) => id !== childPageId);
+    return page;
+};
 
 const addChildPage = (page: Page, childPageId: string) => {
     if (page.children.findIndex((pageId: string) => pageId === childPageId) < 0) {
@@ -74,6 +83,35 @@ export const reducer = (state: State, action: Action) => {
                 [action.page.id]: action.page,
                 ...(parentPage ? { [parentPage.id]: parentPage } : {})
             },
+        };
+    } else if (action.type === 'movePage') {
+        let modifiedPages: Pages = {};
+        const page = state.pages[action.pageId];
+        let newParent;
+        let oldParent;
+
+        // remove page as child of old parent
+        if (page.parent) {
+            oldParent = removeChildPage(state.pages[page.parent], page.id);
+            modifiedPages[oldParent.id] = oldParent;
+        }
+
+        // update page parent
+        page.parent = action.newParentPageId;
+        modifiedPages[page.id] = page;
+
+        // add page as child of new parent
+        if (action.newParentPageId) {
+            newParent = addChildPage(state.pages[action.newParentPageId], page.id);
+            modifiedPages[newParent.id] = newParent;
+        }
+
+        return {
+            ...state,
+            pages: {
+                ...state.pages,
+                ...modifiedPages,
+            }
         };
     } else if (action.type === 'updateCurrentPageId') {
         return {
@@ -101,6 +139,12 @@ const addPageAction = (page: Page) => ({
     page,
 }) as AddPageAction;
 
+const movePageAction = (pageId: string, newParentPageId?: string) => ({
+    type: 'movePage',
+    pageId,
+    newParentPageId,
+}) as MovePageAction;
+
 const updateCurrentPageIdAction = (pageId: string) => ({
     type: 'updateCurrentPageId',
     pageId,
@@ -111,7 +155,7 @@ const updateModeAction = (mode: Mode) => ({
     mode,
 }) as UpdateModeAction;
 
-const updateNewPageParentAction = (parentPageId: string | undefined) => ({
+const updateNewPageParentAction = (parentPageId?: string) => ({
     type: 'updateNewPageParent',
     newPageParentId: parentPageId,
 }) as UpdateNewPageParentAction;
@@ -122,17 +166,19 @@ export const StoreProvider = ({ children }: PropsWithChildren) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const addPage = useMemo(() => (page: Page) => dispatch(addPageAction(page)), []);
+    const movePage = useMemo(() => (pageId: string, newParentPageId?: string) => dispatch(movePageAction(pageId, newParentPageId)), []);
     const updateMode = useMemo(() => (mode: Mode) => dispatch(updateModeAction(mode)), []);
     const updateCurrentPageId = useMemo(() => (pageId: string) => dispatch(updateCurrentPageIdAction(pageId)), []);
-    const updateNewPageParent = useMemo(() => (parentPageId: string | undefined) => dispatch(updateNewPageParentAction(parentPageId)), []);
+    const updateNewPageParent = useMemo(() => (parentPageId?: string) => dispatch(updateNewPageParentAction(parentPageId)), []);
 
     const value = useMemo(() => ({
         ...state,
         addPage,
+        movePage,
         updateCurrentPageId,
         updateMode,
         updateNewPageParent,
-    }), [state, addPage, updateCurrentPageId, updateMode, updateNewPageParent]);
+    }), [state, addPage, movePage, updateCurrentPageId, updateMode, updateNewPageParent]);
 
     return (
         <StoreContext.Provider value={value}>
