@@ -21,7 +21,7 @@ export const Navigator = () => {
         const page = pages[pageId];
 
         return (
-            <ul key={`page-title-${pageId}`}>
+            <ul className='nav-tree' key={`page-title-${pageId}`}>
                 <li>
                     <div className='nav-link' onMouseEnter={() => setIsMouseOver(true)} onMouseLeave={() => setIsMouseOver(false)}>
                         <div className='nav-link-title'>
@@ -37,7 +37,10 @@ export const Navigator = () => {
     
     return (
         <div className='navigator-pane'>
-            {topLevelPages.map((pageId: string) => generateTree(pageId))}
+            <div>
+                {topLevelPages.map((pageId: string) => generateTree(pageId))}
+            </div>
+            <AddPageButton label='Create new page' appearance='medium' />
         </div>
     );
 };
