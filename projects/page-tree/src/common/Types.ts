@@ -1,4 +1,4 @@
-export type Mode = 'Start' | 'AddPage' | 'MovePage' | 'ReadPage';
+export type Mode = 'Start' | 'AddPage' | 'MovePage' | 'ReadPage' | 'EditPage';
 
 export type Pages = {
     [PageId: string]: Page;

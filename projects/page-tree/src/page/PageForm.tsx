@@ -1,18 +1,16 @@
-import { BaseSyntheticEvent, useContext, useState } from 'react';
-import { v7 } from 'uuid';
-import { StoreContext } from '../store/Store';
+import { BaseSyntheticEvent, useState } from 'react';
 import './PageForm.css';
 
 type Props = {
     saveButtonLabel: string;
-    parentPageId?: string;
+    onSubmit: (title: string, content: string) => void;
+    prefillTitle?: string;
+    prefillContent?: string;
 };
 
-const PageForm = ({ parentPageId, saveButtonLabel }: Props) => {
-    const { addPage, currentPageId, updateMode, updateCurrentPageId } = useContext(StoreContext);
-
-    const [title, setTitle] = useState<string>();
-    const [content, setContent] = useState<string>();
+const PageForm = ({ saveButtonLabel, onSubmit, prefillTitle = '', prefillContent = '' }: Props) => {
+    const [title, setTitle] = useState<string>(prefillTitle);
+    const [content, setContent] = useState<string>(prefillContent);
     const [submitted, setSubmitted] = useState<boolean>(false);
 
     const onTitleChange = (e: BaseSyntheticEvent) => {
@@ -21,29 +19,18 @@ const PageForm = ({ parentPageId, saveButtonLabel }: Props) => {
     const onContentChange = (e: BaseSyntheticEvent) => {
         setContent(e.target.value);
     }
-    const onSubmit = (e: BaseSyntheticEvent) => {
+    const onSubmitInner = (e: BaseSyntheticEvent) => {
         setSubmitted(true);
         e.preventDefault();
 
-        if (!title || !content) {
-            return;
-        }
-
-        const id = v7();
-        addPage({ id, title, content, parent: parentPageId, children: [] });
-
-        // no need to show the start page anymore, show content instead since it's more useful to the user.
-        if (!currentPageId) {
-            updateCurrentPageId(id);
-        }
-        updateMode('ReadPage');
+        onSubmit(title, content);
     };
 
     return (
-        <form className='page-form' onSubmit={onSubmit}>
-            <input type='text' placeholder='Title' className='title-input' onChange={onTitleChange} />
+        <form className='page-form' onSubmit={onSubmitInner}>
+            <input type='text' placeholder='Title' className='title-input' onChange={onTitleChange} value={title} />
             {submitted && !title?.length && <div className='error'>Page title cannot be empty.</div>}
-            <textarea placeholder='Content' className='content-input' onChange={onContentChange} />
+            <textarea placeholder='Content' className='content-input' onChange={onContentChange} value={content} />
             {submitted && !content?.length && <div className='error'>Page content cannot be empty.</div>}
             <button className='submit-button' type='submit'>{saveButtonLabel}</button>
         </form>
