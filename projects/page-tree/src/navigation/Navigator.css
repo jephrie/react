@@ -25,3 +25,8 @@
 .nav-tree {
     margin: 0;
 }
+
+.search-bar {
+    width: calc(100% - 10px);
+    margin-bottom: 10px;
+}
