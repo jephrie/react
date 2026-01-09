@@ -53,7 +53,7 @@ export const Navigator = () => {
 
         return (
             <ul className='nav-tree' key={`page-title-${pageId}`}>
-                <PageLink id={page.id} title={page.title} />
+                <PageLink id={page.id} title={page.title} highlighted={searchTerm} />
                 {page.children.map((childPageId: string) => generateTree(childPageId))}
             </ul>
         );

@@ -30,3 +30,11 @@
     width: calc(100% - 10px);
     margin-bottom: 10px;
 }
+
+.highlight-red {
+    background-color: red;
+}
+
+.highlight-orange {
+    background-color: orange;
+}
