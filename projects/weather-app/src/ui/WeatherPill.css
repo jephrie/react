@@ -1,0 +1,13 @@
+.weather-pill {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    column-gap: 5px;
+}
+
+.weather-icon {
+    width: 64px;
+    height: 64px;
+    max-width: 25vw;
+    max-height: 15vh;
+}

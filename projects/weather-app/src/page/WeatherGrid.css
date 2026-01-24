@@ -1,0 +1,15 @@
+.pill-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pill-cell {
+  min-width: calc(25% - 2px);
+  width: calc(25% - 2px);
+  max-width: calc(25% - 2px);
+  min-height: 150px;
+  max-height: calc(15vh - 2px);
+  height: calc(15vh - 2px);
+  border: 1px white solid;
+  align-content: center;
+}
